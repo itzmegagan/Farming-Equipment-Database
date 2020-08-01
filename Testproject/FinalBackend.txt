@@ -1,0 +1,209 @@
+create database Farmer_Machinery_And_Equipment;
+drop database Farmer_Machinery_And_Equipment;
+
+use Farmer_Machinery_And_Equipment;
+
+drop table FARMER_DETAILS;
+drop table DEALS_WITH;
+drop table DEALER_DETAILS;
+drop table FARMER_OWNED_EQUIPMENT;
+drop table BELONGS_TO;
+drop table PURCHASES;
+drop table MACHINERY_DETAILS;
+drop table MANUFACTURED_FROM;
+drop table MANUFACTURER_DETAILS;
+
+create table FARMER_DETAILS(    Farmer_Name varchar(30),
+                                Farmer_ID char(5),
+                                primary key (Farmer_ID),
+                                foreign key (Farmer_Name) references FARMER_OWNED_EQUIPMENT (Farmer_Name)on delete cascade on update cascade,
+                                foreign key (Farmer_ID) references DEALS_WITH (Farmer_ID) on delete cascade on update cascade
+                           );
+
+insert into FARMER_DETAILS values('Ram DSouza','F9999')
+insert into FARMER_DETAILS values('Peter Kumar','F8888')
+insert into FARMER_DETAILS values('Shyam Mohammed','F7777')
+insert into FARMER_DETAILS values('David Bekal','F6666')
+insert into FARMER_DETAILS values('Gayatri DSilva','F5555')
+insert into FARMER_DETAILS values('Zoya Begum','F4444')
+
+
+drop table FARMER_DETAILS;
+
+create table DEALS_WITH (    Invoice_ID int,
+                             Farmer_ID char(5),
+                             Dealer_ID int,
+                             ID_Of_Equipment_Bought char(5),
+                             Price real,
+                             primary key (Farmer_ID,Dealer_ID,ID_Of_Equipment_Bought),
+                             foreign key (Dealer_ID) references DEALER_DETAILS (Dealer_ID) on delete cascade on update cascade,
+                             foreign key (ID_Of_Equipment_Bought) references DEALER_DETAILS (ID_Of_Equipment_Sold) on delete cascade on update cascade
+                        );
+
+drop table DEALS_WITH;
+
+insert into DEALS_WITH values()
+
+create table DEALER_DETAILS (   Dealer_ID varchar(5),
+                                Dealer_Name varchar(50),
+                                Location_Of_Store varchar(30),
+                                primary key (Dealer_ID)
+                            );
+
+drop table DEALER_DETAILS;
+
+insert into DEALER_DETAILS values ( 'DD650',' Mohan Equipment Wholesaler','Manipal ');
+insert into DEALER_DETAILS values ( 'DD651',' Shabbir and Sons', 'Karkala');
+insert into DEALER_DETAILS values ( 'DD652',' Harish Machines', 'Udyavara');
+insert into DEALER_DETAILS values ( 'DD653',' Stani Slause Parts', 'Belman');
+insert into DEALER_DETAILS values ( 'DD654',' Chirag Distributors', 'Belman ');
+insert into DEALER_DETAILS values ( 'DD655',' Lobo Enterprises', 'Mangalore ');
+insert into DEALER_DETAILS values ( 'DD656',' Kamath Pvt Ltd', ' Mulki');
+insert into DEALER_DETAILS values ( 'DD657',' Suresh and Co ',' Udupi');
+insert into DEALER_DETAILS values ( 'DD658',' Derek Union ',' Mangalore');
+insert into DEALER_DETAILS values ( 'DD659',' Ramesh and Sons ',' Bangalore');
+insert into DEALER_DETAILS values ( 'DD660',' Vitech Farms ',' Mangalore');
+insert into DEALER_DETAILS values ( 'DD661',' Roshan Pvt Ltd ',' Udupi');
+insert into DEALER_DETAILS values ( 'DD662',' Daniel and Brothers ',' Manipal');
+insert into DEALER_DETAILS values ( 'DD663',' Farmtech ',' Udupi');
+insert into DEALER_DETAILS values ( 'DD664',' Equimania ',' Bangalore');
+
+create table FARMER_OWNED_EQUIPMENT (
+                                        Farmer_ID char(5),
+                                        Equipment_ID varchar(7),
+                                        Dealer_ID varchar(5),
+                                        Manufacturer_ID varchar(5),
+                                        Quantity int,
+                                        primary key (Equipment_ID,Dealer_ID,Manufacturer_ID),
+                                        foreign key (Equipment_ID) references MACHINERY_DETAILS(Equipment_ID) on delete cascade on update cascade,
+                                        foreign key (Dealer_ID) references DEALER_DETAILS(Dealer_ID) on delete cascade on update cascade,
+                                        foreign key (Manufacturer_ID) references MANUFACTURER_DETAILS(Manufacturer_ID) on delete cascade on update cascade
+                                    );
+
+drop table  FARMER_OWNED_EQUIPMENT;
+
+create table BELONGS_TO (    Equipment_ID int,
+                             Maintenance_Cost int,
+                             primary key (Equipment_ID,Maintenance_Cost)
+                        );
+
+drop table BELONGS_TO;
+
+create table SELLS (        Dealer_ID varchar(5),
+                            Equipment_ID varchar(7),
+                            primary key (Dealer_ID,Equipment_ID),
+                            foreign key (Dealer_ID) references  DEALER_DETAILS (Dealer_ID) on delete cascade on update cascade,
+                            foreign key (Equipment_ID) references MACHINERY_DETAILS (Equipment_ID) on delete cascade on update cascade
+                       );
+drop table SELLS;
+
+insert into SELLS values('DD650','MD17890');
+insert into SELLS values('DD650','MD17893');
+insert into SELLS values('DD650','MD17891');
+insert into SELLS values('DD651','MD17897');
+insert into SELLS values('DD651','MD17899');
+insert into SELLS values('DD652','MD17898');
+insert into SELLS values('DD652','MD17895');
+insert into SELLS values('DD653','MD17896');
+insert into SELLS values('DD654','MD17899');
+insert into SELLS values('DD654','MD17900');
+insert into SELLS values('DD655','MD17891');
+insert into SELLS values('DD655','MD17902');
+insert into SELLS values('DD655','MD17904');
+insert into SELLS values('DD656','MD17894');
+insert into SELLS values('DD657','MD17905');
+insert into SELLS values('DD657','MD17903');
+
+
+create table MACHINERY_DETAILS (    Equipment_ID varchar(7),
+                                    Equipment_Name varchar(40),
+                                    Used_For varchar(50),
+                                    Cost bigint,
+                                    primary key (Equipment_ID),
+                                    foreign key (Equipment_ID) references FARMER_OWNED_EQUIPMENT (Equipment_ID) on delete cascade on update cascade,
+                                    foreign key (Equipment_ID) references BELONGS_TO (Equipment_ID) on delete cascade on update cascade,
+                                    foreign key (Equipment_ID) references MANUFACTURED_FROM (Equipment_ID) on delete cascade on update cascade
+                       );
+
+drop table MACHINERY_DETAILS;
+
+insert into MACHINERY_DETAILS values('MD17890','Hand Sickle','Grass cutting',50);
+insert into MACHINERY_DETAILS values('MD17891','Pick Axe','Digging',175);
+insert into MACHINERY_DETAILS values('MD17892','Disc Harrow','Tilling of soil',42500);
+insert into MACHINERY_DETAILS values('MD17893','Land Leveller','Levelling of land',10500);
+insert into MACHINERY_DETAILS values('MD17894','Agricultural Spray Pump ','Spraying insecticides',2000);
+insert into MACHINERY_DETAILS values('MD17895','Power Harrows','Breaking up clods',150000);
+insert into MACHINERY_DETAILS values('MD17896','Disc Ridger','Making irrigation banks',22000);
+insert into MACHINERY_DETAILS values('MD17897','Plough','Cultivation',4000);
+insert into MACHINERY_DETAILS values('MD17898','Grass Shrub Master','Grass Cutting',75000);
+insert into MACHINERY_DETAILS values('MD17899','Shovel','Digging',499);
+insert into MACHINERY_DETAILS values('MD17900','Seeder Machine','Planting seeds',160000);
+insert into MACHINERY_DETAILS values('MD17901','Agro Shade Net','Shade for crops',1500);
+
+insert into MACHINERY_DETAILS values('MD17902','Power Weeder','Removing weeds',47040);
+insert into MACHINERY_DETAILS values('MD17903','Maize Sheller','Seperate grains from crops',7000);
+insert into MACHINERY_DETAILS values('MD17904','Seed Cracker','Cracks seeds',300000);
+insert into MACHINERY_DETAILS values('MD17905','Farm Tiller','Ploughing the soil',65000);
+insert into MACHINERY_DETAILS values(17903,'','',);
+insert into MACHINERY_DETAILS values(17903,'','',);
+
+
+create table MANUFACTURED_FROM (    Equipment_ID varchar(7),
+                                    Manufacturer_ID varchar(5),
+                                    Quantity int,
+                                    primary key (Equipment_ID,Manufacturer_ID),
+                                    foreign key (Equipment_ID) references MACHINERY_DETAILS (Equipment_ID) on delete cascade on update cascade,
+                                    foreign key (Manufacturer_ID) references MANUFACTURER_DETAILS(Manufacturer_ID) on delete cascade on update cascade
+                               );
+
+drop table MANUFACTURED_FROM;
+
+insert into MANUFACTURED_FROM values('MD17890','M1700',3);
+insert into MANUFACTURED_FROM values('MD17891','M1700',5);
+insert into MANUFACTURED_FROM values('MD17892','M1700',2);
+insert into MANUFACTURED_FROM values('MD17896','M1700',8);
+insert into MANUFACTURED_FROM values('MD17897','M1701',3);
+insert into MANUFACTURED_FROM values('MD17895','M1701',5);
+insert into MANUFACTURED_FROM values('MD17892','M1701',6);
+insert into MANUFACTURED_FROM values('MD17899','M1702',7);
+insert into MANUFACTURED_FROM values('MD17897','M1702',12);
+insert into MANUFACTURED_FROM values('MD17898','M1702',24);
+insert into MANUFACTURED_FROM values('MD17890','M1702',7);
+insert into MANUFACTURED_FROM values('MD17896','M1703',26);
+insert into MANUFACTURED_FROM values('MD17990','M1703',13);
+insert into MANUFACTURED_FROM values('MD17890','M1704',17);
+insert into MANUFACTURED_FROM values('MD17899','M1704',32);
+insert into MANUFACTURED_FROM values('MD17897','M1704',26);
+insert into MANUFACTURED_FROM values('MD17902','M1705',17);
+insert into MANUFACTURED_FROM values('MD17900','M1705',13);
+insert into MANUFACTURED_FROM values('MD17890','M1705',14);
+insert into MANUFACTURED_FROM values('MD17894','M1706',19);
+insert into MANUFACTURED_FROM values('MD17895','M1706',17);
+insert into MANUFACTURED_FROM values('MD17993','M1706',18);
+insert into MANUFACTURED_FROM values('MD17891','M1706',21);
+insert into MANUFACTURED_FROM values('MD17901','M1707',23);
+insert into MANUFACTURED_FROM values('MD17902','M1707',26);
+insert into MANUFACTURED_FROM values('MD17904','M1707',23);
+insert into MANUFACTURED_FROM values('MD17893','M1707',7);
+insert into MANUFACTURED_FROM values('MD17898','M1707',21);
+insert into MANUFACTURED_FROM values('MD17899','M1707',17);
+
+
+create table MANUFACTURER_DETAILS (    Manufacturer_ID varchar(5),
+                                       Manufacturer_Name varchar(50),
+                                       Location_Of_Production varchar(30),
+                                       primary key (Manufacturer_ID)
+                                  );
+
+drop table MANUFACTURER_DETAILS;
+
+insert into MANUFACTURER_DETAILS values('M1700' ,'Louisons Engineering Works','Coimbatore')
+insert into MANUFACTURER_DETAILS values('M1701' ,'JNP Agro Systems Pvt. Ltd.','Chennai')
+insert into MANUFACTURER_DETAILS values('M1702' ,'TAFE Access Limited','Chennai')
+insert into MANUFACTURER_DETAILS values('M1703' ,'Bharath Farm Implements','Udumalpet')
+insert into MANUFACTURER_DETAILS values('M1704' ,'Everest Industries','Udumalpet')
+insert into MANUFACTURER_DETAILS values('M1705' ,'Ramakumar Industries','Coimbatore')
+insert into MANUFACTURER_DETAILS values('M1706' ,'Farm Implements (India) Pvt. Ltd.','Patna')
+insert into MANUFACTURER_DETAILS values('M1707' ,'Irridyne Agro Implements Pvt. Ltd.','Surat')
+
+Select MF.Quantity from Manufactured_From MF where MF.Equipment_ID='MD17891' and MF.Manufacturer_ID='M1706';

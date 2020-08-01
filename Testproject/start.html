@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Equipments and Machinery</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: green;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: black;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+    </style>
+</head>
+
+<div>
+<nav class="zone green sticky">
+    <ul class=main-nav>
+        <li><a href="">About</a></li>
+        <li><a href="">Our Team</a></li>
+        <li class="push"><a href="">Contact Us</a></li>
+    </ul>
+</nav>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="/Myproject/DealerDetails/Dealer_Details.php">Dealer Details</a>
+        <a href="/Myproject/MachineryDetails/Machinery_Details.php">Machinery Details</a>
+        <a href="/Myproject/ManufacturerDetails/Manufacturer_Details.php">Manufacturer Details</a>
+        <a href="/Myproject/BuyOrRent/Buy_Rent.php">Buy Equipment</a>
+        <a href="/Myproject/BuyOrRent/Farmer_Owned_Equipment.php">Owned Equipment</a>
+
+    </div>
+
+    <div id="main">
+           <h2>Sidenav Push Example</h2>
+<!--        <p>Click on the element below to open the side navigation menu, and push this content to the right.</p>-->
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; DASHBOARD</span>
+    </div>
+
+    <div class="container green zone"><img class="cover" src="./img/farmer.jpg">
+    <h1 style="color: indigo;font-size: 60px;font-family: Times New Roman">FARMER MACHINERY AND EQUIPMENTS</h1></div>
+<div class="zone green grid-wrapper">
+    <a href="/Myproject/DealerDetails/Dealer_Details.php"><div class="box zone"><img src="./img/dealer.jpg">
+    <h3>DEALER DETAILS</h3>
+    <p>Details of various Dealers and the Equipment they sell</p></div></a>
+
+    <a href="/Myproject/MachineryDetails/Machinery_Details.php"><div class="box zone"><img src="./img/machinery.jpg">
+    <h3>MACHINERY DETAILS</h3>
+    <p>Details of Machines and Equipments available to buy or rent</p></div></a>
+
+    <a href="/Myproject/ManufacturerDetails/Manufacturer_Details.php"><div class="box zone"><img src="./img/manufacturer.jpg">
+    <h3>MANUFACTURER DETAILS</h3>
+    <p>Details of Manufacturers who produce the machinery and equipments</p></div></a>
+
+    <a href="/Myproject/BuyOrRent/Buy_Rent.php"><div class="box zone"><img src="./img/buy.jpg">
+    <h3 style="color: white">BUY EQUIPMENT</h3>
+        <p style="color: white">System to Buy the desired machinery and equipments </p></div></a>
+
+    <a href="/Myproject/BuyOrRent/Farmer_Owned_Equipment.php"><div class="box zone"><img src="./img/buy.jpg">
+        <h3 style="color: white">Owned Equipments</h3>
+        <p style="color: white">Shows the information about the equipments owned by the farmer </p></div></a>
+
+</div>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+    </script>
+<!--    <div class="container green zone">-->
+<!--    <img class="cover" src="./img/tractor.jpg">-->
+<!--    <p style="color: yellow;font-size: 40px;font-family: 'Bernard MT Condensed'">Our main goal is to make the process of buying and maintaining the equipments easier for the farmers...</p>-->
+<!--</div>-->
+</body>
+</html>
